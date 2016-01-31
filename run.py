@@ -59,9 +59,13 @@ if __name__ == '__main__':
                  'opponent_bots/defensive_bot.py',
                  'opponent_bots/production_bot.py']
 
+    # opponents = ['opponent_bots/aggressive_bot.py']
+
     maps = [71, 13, 24, 56, 7]
 
-    my_bot = 'behavior_tree_bot/bt_bot.py'
+    # my_bot = 'behavior_tree_bot/bt_bot.py'
+    my_bot = 'opponent_bots/spread_bot.py'
+    # opponent = 'opponent_bots/aggressive_bot.py'
 
     for opponent, map in zip(opponents, maps):
         # use this command if you want to observe the bots

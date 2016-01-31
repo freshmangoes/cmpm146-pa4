@@ -1,0 +1,30 @@
+IDLE/Spread strategy
+
+Check values of planet cost and distance
+    Figure out top 5 lowest values within arbitrary distance
+        If planets of those checked are enemy planets or not
+            Prioritize enemy planets with check for distance and growth at their planet,
+            amount of turns it will take us to get there, the current fleet count
+        Else
+            take over closest neutral planet with (fleet + 1) FOR NOW
+
+
+NAME THIS STRATEGY - Aggressive Expansion?
+After arbitrary number of fleets we already have 
+	Check if planet is theirs or ours
+		prioritize neutral
+			prioritize largest value
+	Probably make IDLe/spread strategy a child of this so that starts expansion again
+
+
+Defensive?
+Figure out planet being targeted
+	Check enemy fleet count currently in flight
+		Check our fleet count at planet and growth rate
+			If we have planet close enough to reinforce --> do
+				Unless it will have low fleet count and be susceptible to attacks or 
+
+
+
+if growth * fleet flight distance > fleet being sent for reinforcements --> don't do
+
