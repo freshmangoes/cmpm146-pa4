@@ -48,7 +48,8 @@ def spread_to_weakest_neutral_planet(state):
 def spread_to_closest_neutral(state):
 
     my_planets = iter(sorted(state.my_planets(), key=lambda p: p.num_ships))
-    neutral_planets = [planet for planet in state.neutral_planets() if not any(fleet.destination_planet == planet.ID for fleet in state.my_fleets())]
+    neutral_planets = [planet for planet in state.neutral_planets()
+                       if not any(fleet.destination_planet == planet.ID for fleet in state.my_fleets())]
     neutral_planets.sort(key=lambda p: p.num_ships)
     # target_planets = iter(sorted(neutral_planets, key = lambda p: p.num_ships))
     target_planets = iter(neutral_planets)
