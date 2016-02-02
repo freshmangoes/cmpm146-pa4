@@ -8,3 +8,5 @@ def have_largest_fleet(state):
            > sum(planet.num_ships for planet in state.enemy_planets()) \
              + sum(fleet.num_ships for fleet in state.enemy_fleets())
 
+def more_than_target(state):
+    return 
