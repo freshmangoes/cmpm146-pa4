@@ -44,7 +44,13 @@ def setup_behavior_tree():
     spread_action = Action(spread_to_weakest_neutral_planet)
     spread_sequence.child_nodes = [neutral_planet_check, spread_action]
 
-    root.child_nodes = [offensive_plan, spread_sequence, attack.copy()]
+    # Spread to closest
+    custom_seq = Sequence(name='Custom')
+    neutral_planet_check2 = Check(if_neutral_planet_available)
+    custom_action = Action(spread_to_closest_neutral)
+    custom_seq.child_nodes = [neutral_planet_check2, custom_action]
+
+    root.child_nodes = [offensive_plan, custom_seq,spread_sequence, attack.copy()]
 
     logging.info('\n' + root.tree_to_string())
     return root
