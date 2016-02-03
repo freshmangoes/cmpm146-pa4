@@ -28,18 +28,28 @@ def setup_behavior_tree():
     # Top-down construction of behavior tree
     root = Selector(name='High Level Ordering of Strategies')
 
+    # Spread to weakest neutral
+    spread_orig = Sequence(name='Spread_Orig')
+    spread_orig_action = Action(spread_to_weakest_neutral_planet)
+    neutral_planet_check = Check(if_neutral_planet_available)
+    spread_orig.child_nodes = [neutral_planet_check, spread_orig_action]
+
     # Spread to closest
     spread_plan = Sequence(name='Spread2')
-    neutral_planet_check = Check(if_neutral_planet_available)
-    spread_action = Action(spread_to_closest_neutral)
-    spread_plan.child_nodes = [neutral_planet_check, spread_action]
+    # neutral_planet_check = Check(if_neutral_planet_available)
+    spread_action = Action(spread)
+    spread_plan.child_nodes = [neutral_planet_check, spread_orig, spread_action]
+    # spread_plan.child_nodes = [neutral_planet_check, spread_action, spread_action]
+
+
 
     # Attack 2
     attack_plan = Sequence(name='Attack2')
     largest_fleet_check = Check(have_largest_fleet)
     enemy_planet_check = Check(if_enemy_planet_available)
     attack_action = Action(attack_improved)
-    attack_plan.child_nodes = [enemy_planet_check, largest_fleet_check, attack_action]
+    # attack_plan.child_nodes = [enemy_planet_check, largest_fleet_check, attack_action]
+    attack_plan.child_nodes = [largest_fleet_check, enemy_planet_check, attack_action]
 
     # root.child_nodes = [spread_plan, attack_plan, attack_action.copy(), spread_action.copy()]
     root.child_nodes = [attack_plan, spread_plan, attack_action.copy(), spread_action.copy()]
