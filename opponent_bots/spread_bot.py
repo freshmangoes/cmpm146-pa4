@@ -22,6 +22,7 @@ def spread(state):
         my_planet = next(my_planets)
         target_planet = next(target_planets)
         while True:
+            logging.info("Spread Distance:: " + str(state.distance(my_planet.ID, target_planet.ID)))
             required_ships = target_planet.num_ships + 1
 
             if my_planet.num_ships > required_ships:
@@ -53,7 +54,7 @@ def attack(state):
             # logging.debug("my_planet.ID", my_planet.ID)
             # logging.info("My planet ID :" + str(my_planet.ID))
             dist = state.distance(my_planet.ID, target_planet.ID)
-            logging.info("DIST: " + str(dist))
+            logging.info("Attack Distance:: " + str(dist))
             if my_planet.num_ships > required_ships:
                 issue_order(state, my_planet.ID, target_planet.ID, required_ships)
                 my_planet = next(my_planets)

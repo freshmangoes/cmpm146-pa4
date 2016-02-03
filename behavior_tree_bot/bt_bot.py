@@ -28,36 +28,20 @@ def setup_behavior_tree():
     # Top-down construction of behavior tree
     root = Selector(name='High Level Ordering of Strategies')
 
-    # Offensive strategy
-    offensive_plan = Sequence(name='Offensive Strategy')
-    # Check to see if your fleet is larger
-    largest_fleet_check = Check(have_largest_fleet)
-    # Find my strongest planet, find weakest enemy planet, send half of the ships
-    # from my strongest planet to weakest enemy planet.
-    attack = Action(attack_weakest_enemy_planet)
-    # Sets the actions as child nodes to offensive_plan
-    offensive_plan.child_nodes = [largest_fleet_check, attack]
-
-    # # Spread strategy
-    # spread_sequence = Sequence(name='Spread Strategy')
-    # neutral_planet_check = Check(if_neutral_planet_available)
-    # spread_action = Action(spread_to_weakest_neutral_planet)
-    # spread_sequence.child_nodes = [neutral_planet_check, spread_action]
-
     # Spread to closest
-    spread2 = Sequence(name='Spread2')
-    neutral_planet_check2 = Check(if_neutral_planet_available)
-    spread2_action = Action(spread_to_closest_neutral)
-    spread2.child_nodes = [neutral_planet_check2, spread2_action]
+    spread_plan = Sequence(name='Spread2')
+    neutral_planet_check = Check(if_neutral_planet_available)
+    spread_action = Action(spread_to_closest_neutral)
+    spread_plan.child_nodes = [neutral_planet_check, spread_action]
 
     # Attack 2
     attack_plan = Sequence(name='Attack2')
-    largest_fleet_check2 = Check(have_largest_fleet)
-    attack2 = Action(attack_improved)
-    attack_plan.child_nodes = [largest_fleet_check2, attack2]
+    largest_fleet_check = Check(have_largest_fleet)
+    enemy_planet_check = Check(if_enemy_planet_available)
+    attack_action = Action(attack_improved)
+    attack_plan.child_nodes = [enemy_planet_check, largest_fleet_check, attack_action]
 
-    root.child_nodes = [spread2, spread2_action.copy(), attack_plan, offensive_plan, attack2.copy()]
-    # root.child_nodes = [attack_plan, spread2, attack2.copy()]
+    root.child_nodes = [spread_plan, attack_plan, spread_action.copy(), attack_action.copy()]
     logging.info('\n' + root.tree_to_string())
     return root
 
