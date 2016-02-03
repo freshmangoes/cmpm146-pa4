@@ -1,9 +1,6 @@
 def if_neutral_planet_available(state):
     return any(state.neutral_planets())
 
-def closest_neutral_planet(state):
-
-    pass
 
 def have_largest_fleet(state):
     return sum(planet.num_ships for planet in state.my_planets()) \

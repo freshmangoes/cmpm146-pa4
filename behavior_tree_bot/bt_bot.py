@@ -11,7 +11,8 @@
 // own.
 """
 import logging, traceback, sys, os, inspect
-logging.basicConfig(filename=__file__[:-3] +'.log', filemode='w', level=logging.DEBUG)
+
+logging.basicConfig(filename=__file__[:-3] + '.log', filemode='w', level=logging.DEBUG)
 currentdir = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
 parentdir = os.path.dirname(currentdir)
 sys.path.append(parentdir)
@@ -71,7 +72,10 @@ def setup_behavior_tree():
     spread_full = Sequence(name='Spread Full Sequence')
     spread_full.child_nodes = [neutral_planet_check, spread_def_plan, spread_hgr_plan, spread_vanilla_plan, spread_orig]
 
-    root.child_nodes = [attack_full, spread_full, attack_action.copy(), spread_def_action.copy()]
+    root.child_nodes = [attack_full, spread_full, attack_action.copy(),
+                        attack_hgr_action.copy(), spread_vanilla_action.copy(),
+                        spread_orig_action.copy(), spread_def_action.copy(),
+                        spread_hgr_action.copy()]
     logging.info('\n' + root.tree_to_string())
     return root
 
