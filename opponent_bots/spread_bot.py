@@ -51,8 +51,6 @@ def attack(state):
         while True:
             required_ships = target_planet.num_ships + \
                                  state.distance(my_planet.ID, target_planet.ID) * target_planet.growth_rate + 1
-            # logging.debug("my_planet.ID", my_planet.ID)
-            # logging.info("My planet ID :" + str(my_planet.ID))
             dist = state.distance(my_planet.ID, target_planet.ID)
             logging.info("Attack Distance:: " + str(dist))
             if my_planet.num_ships > required_ships:

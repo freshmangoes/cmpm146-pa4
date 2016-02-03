@@ -28,31 +28,50 @@ def setup_behavior_tree():
     # Top-down construction of behavior tree
     root = Selector(name='High Level Ordering of Strategies')
 
-    # Spread to weakest neutral
-    spread_orig = Sequence(name='Spread_Orig')
-    spread_orig_action = Action(spread_to_weakest_neutral_planet)
-    neutral_planet_check = Check(if_neutral_planet_available)
-    spread_orig.child_nodes = [neutral_planet_check, spread_orig_action]
-
-    # Spread to closest
-    spread_plan = Sequence(name='Spread2')
-    # neutral_planet_check = Check(if_neutral_planet_available)
-    spread_action = Action(spread)
-    spread_plan.child_nodes = [neutral_planet_check, spread_orig, spread_action]
-    # spread_plan.child_nodes = [neutral_planet_check, spread_action, spread_action]
-
-
-
-    # Attack 2
-    attack_plan = Sequence(name='Attack2')
+    # Checks
     largest_fleet_check = Check(have_largest_fleet)
     enemy_planet_check = Check(if_enemy_planet_available)
-    attack_action = Action(attack_improved)
-    # attack_plan.child_nodes = [enemy_planet_check, largest_fleet_check, attack_action]
-    attack_plan.child_nodes = [largest_fleet_check, enemy_planet_check, attack_action]
+    neutral_planet_check = Check(if_neutral_planet_available)
 
-    # root.child_nodes = [spread_plan, attack_plan, attack_action.copy(), spread_action.copy()]
-    root.child_nodes = [attack_plan, spread_plan, attack_action.copy(), spread_action.copy()]
+    # Spread to weakest neutral
+    spread_orig = Sequence(name='Spread Original')
+    spread_orig_action = Action(spread_to_weakest_neutral_planet)
+    spread_orig.child_nodes = [spread_orig_action]
+
+    # Spread vanilla
+    spread_vanilla_plan = Sequence(name='Spread Vanilla')
+    spread_vanilla_action = Action(spread_vanilla)
+    spread_vanilla_plan.child_nodes = [spread_vanilla_action]
+
+    # Spread to high growth rate
+    spread_hgr_plan = Sequence(name='Spread High Growth Rate')
+    spread_hgr_action = Action(spread_to_highest_growth_rate)
+    spread_hgr_plan.child_nodes = [spread_hgr_action]
+
+    # Spread default
+    spread_def_plan = Sequence(name='Spread Default')
+    spread_def_action = Action(spread_default)
+    spread_def_plan.child_nodes = [spread_def_action]
+
+    # Attack Vanilla
+    attack_plan = Sequence(name='Attack Vanilla')
+    attack_action = Action(attack_vanilla)
+    attack_plan.child_nodes = [attack_action]
+
+    # Attack high growth rate
+    attack_hgr_plan = Sequence(name='Attack High Growth Rate')
+    attack_hgr_action = Action(attack_high_growth)
+    attack_hgr_plan.child_nodes = [attack_hgr_action]
+
+    # Attack-full
+    attack_full = Sequence(name='Attack Full Sequence')
+    attack_full.child_nodes = [largest_fleet_check, enemy_planet_check, attack_plan, attack_hgr_plan]
+
+    # Spread-full
+    spread_full = Sequence(name='Spread Full Sequence')
+    spread_full.child_nodes = [neutral_planet_check, spread_def_plan, spread_hgr_plan, spread_vanilla_plan, spread_orig]
+
+    root.child_nodes = [attack_full, spread_full, attack_action.copy(), spread_def_action.copy()]
     logging.info('\n' + root.tree_to_string())
     return root
 

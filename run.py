@@ -1,5 +1,6 @@
 import subprocess
 import os, sys
+import random
 
 
 def show_match(bot, opponent_bot, map_num):
@@ -61,8 +62,14 @@ if __name__ == '__main__':
 
     # opponents = ['opponent_bots/spread_bot.py']
 
-    maps = [71, 13, 24, 56, 7]
+    # maps = [71, 13, 24, 56, 7]
 
+    map1 = random.randint(1, 100)
+    map2 = random.randint(1, 100)
+    map3 = random.randint(1, 100)
+    map4 = random.randint(1, 100)
+    map5 = random.randint(1, 100)
+    maps = [map1, map2, map3, map4, map5]
 
     my_bot = 'behavior_tree_bot/bt_bot.py'
     # my_bot = 'opponent_bots/spread_bot.py'
@@ -73,5 +80,5 @@ if __name__ == '__main__':
         show_match(my_bot, opponent, map)
 
         # use this command if you just want the results of the matches reported
-        #test(my_bot, opponent, map)  
+        #test(my_bot, opponent, map)
 
