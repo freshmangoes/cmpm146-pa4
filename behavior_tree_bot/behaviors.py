@@ -1,8 +1,9 @@
-import sys
+# Kyle Cilia
+# Marco Iskandar
 
+import sys
 sys.path.insert(0, '../')
 from planet_wars import issue_order
-import heapq
 
 
 # Vanilla attack

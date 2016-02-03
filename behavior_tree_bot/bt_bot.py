@@ -1,5 +1,6 @@
 #!/usr/bin/env python
-#
+# Kyle Cilia
+# Marco Iskandar
 
 """
 // The do_turn function is where your code goes. The PlanetWars object contains
@@ -36,31 +37,37 @@ def setup_behavior_tree():
 
     # Spread to weakest neutral
     spread_orig = Sequence(name='Spread Original')
+    # spread_orig = Selector(name='Spread Original')
     spread_orig_action = Action(spread_to_weakest_neutral_planet)
     spread_orig.child_nodes = [spread_orig_action]
 
     # Spread vanilla
     spread_vanilla_plan = Sequence(name='Spread Vanilla')
+    # spread_vanilla_plan = Selector(name='Spread Vanilla')
     spread_vanilla_action = Action(spread_vanilla)
     spread_vanilla_plan.child_nodes = [spread_vanilla_action]
 
     # Spread to high growth rate
     spread_hgr_plan = Sequence(name='Spread High Growth Rate')
+    # spread_hgr_plan = Selector(name='Spread High Growth Rate')
     spread_hgr_action = Action(spread_to_highest_growth_rate)
     spread_hgr_plan.child_nodes = [spread_hgr_action]
 
     # Spread default
     spread_def_plan = Sequence(name='Spread Default')
+    # spread_def_plan = Selector(name='Spread Default')
     spread_def_action = Action(spread_default)
     spread_def_plan.child_nodes = [spread_def_action]
 
     # Attack Vanilla
     attack_plan = Sequence(name='Attack Vanilla')
+    # attack_plan = Selector(name='Attack Vanilla')
     attack_action = Action(attack_vanilla)
     attack_plan.child_nodes = [attack_action]
 
     # Attack high growth rate
     attack_hgr_plan = Sequence(name='Attack High Growth Rate')
+    # attack_hgr_plan = Selector(name='Attack High Growth Rate')
     attack_hgr_action = Action(attack_high_growth)
     attack_hgr_plan.child_nodes = [attack_hgr_action]
 
