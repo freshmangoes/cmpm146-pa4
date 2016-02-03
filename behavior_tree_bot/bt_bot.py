@@ -41,7 +41,8 @@ def setup_behavior_tree():
     attack_action = Action(attack_improved)
     attack_plan.child_nodes = [enemy_planet_check, largest_fleet_check, attack_action]
 
-    root.child_nodes = [spread_plan, attack_plan, spread_action.copy(), attack_action.copy()]
+    # root.child_nodes = [spread_plan, attack_plan, attack_action.copy(), spread_action.copy()]
+    root.child_nodes = [attack_plan, spread_plan, attack_action.copy(), spread_action.copy()]
     logging.info('\n' + root.tree_to_string())
     return root
 
